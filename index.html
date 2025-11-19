@@ -1,81 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>SajaBazaar - Coming Soon</title>
-    <meta name="description" content="SajaBazaar is launching soon! Get ready for the best online shopping experience in Nepal." />
-    <meta name="author" content="SajaBazaar" />
-    <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f8f9fa;
-            color: #212529;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            text-align: center;
-        }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SajaBazaar - Coming Soon</title>
+<meta name="description" content="SajaBazaar is launching soon! Get ready for the best online shopping experience in Nepal." />
+<meta name="author" content="SajaBazaar" />
+<style>
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        background: linear-gradient(to right, #6a11cb, #2575fc);
+        color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        text-align: center;
+    }
 
-        .container {
-            max-width: 600px;
-            padding: 2rem;
-        }
+    .container {
+        max-width: 600px;
+        padding: 2rem;
+        background: rgba(0,0,0,0.2);
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
+    h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
 
-        p {
-            font-size: 1.25rem;
-            color: #6c757d;
-        }
+    p {
+        font-size: 1.25rem;
+        color: #d1d1d1;
+    }
 
-        #timer {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-top: 2rem;
-            color: #007bff;
-        }
-    </style>
+    #timer {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin-top: 2rem;
+        color: #ffd700;
+    }
+</style>
 </head>
 <body>
-    <div class="container">
-        <h1>Launching Soon</h1>
-        <p>We are working hard to bring you the best online shopping experience.</p>
-        <div id="timer"></div>
-    </div>
+<div class="container">
+    <h1>Launching Soon 🚀</h1>
+    <p>We are working hard to bring you the best online shopping experience in Nepal.</p>
+    <div id="timer"></div>
+</div>
 
-    <script>
-        (function() {
-            const countdownElement = document.getElementById("timer");
+<script>
+(function() {
+    const countdownElement = document.getElementById("timer");
 
-            // Set the launch date to December 16, 2025, 21:00:00 Nepal Time.
-            const launchDate = new Date('2025-12-16T21:00:00+05:45');
+    // December 16, 2025, 21:00:00 Nepal Standard Time (UTC+5:45)
+    const launchUTC = Date.UTC(2025, 11, 16, 15, 15, 0); // 15:15 UTC = 21:00 NST
 
-            const updateTimer = () => {
-                const currentTime = new Date();
-                const diff = launchDate - currentTime;
+    // Store the launch date in localStorage (once)
+    if (!localStorage.getItem("launchDate")) {
+        localStorage.setItem("launchDate", launchUTC);
+    }
 
-                if (diff <= 0) {
-                    countdownElement.innerHTML = "We are live!";
-                    return;
-                }
+    const launchDate = parseInt(localStorage.getItem("launchDate"), 10);
 
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+    const updateTimer = () => {
+        const currentTime = new Date().getTime();
+        let diff = launchDate - currentTime;
 
-                countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-            };
+        if (diff <= 0) {
+            countdownElement.innerHTML = "🎉 We are live!";
+            return;
+        }
 
-            setInterval(updateTimer, 1000);
-            updateTimer();
-        })();
-    </script>
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    };
+
+    setInterval(updateTimer, 1000);
+    updateTimer();
+})();
+</script>
 </body>
 </html>
